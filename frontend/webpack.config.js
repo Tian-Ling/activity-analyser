@@ -8,7 +8,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
     alias: {
-      Styles: path.resolve(__dirname, 'styles')
+      Styles: path.resolve(__dirname, 'styles'),
+      Components: path.resolve(__dirname, 'components'),
+      Constants: path.resolve(__dirname, 'constants')
     }
   },
   devServer: {

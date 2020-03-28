@@ -1,13 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import 'Styles/BasePage.css';
+import ActivityAnalytics from './ActivityAnalytics/ActivityAnalytics';
+import ActivityEditor from './ActivityEditor/ActivityEditor';
+import 'Styles/basepage';
 import { SideNav, SideNavLink } from './common/SideNav';
 import { Switch, Route } from 'react-router-dom';
-import { ActivityGraph } from './activityGraph/ActivityGraph';
+import * as pathConstants from 'Constants/pathConstants';
 
 export const BasePage: FunctionComponent = () => {
   const sideNavLinks: SideNavLink[] = [
-    { url: '/activityGraph', iconUri: '', name: 'Activity Graph' },
-    { url: '/analytics', iconUri: '', name: 'File Edit' }
+    { url: pathConstants.ANALYTICS_PATH, iconUri: '', name: 'Activity Graph' },
+    { url: pathConstants.EDITOR_PATH, iconUri: '', name: 'File Edit' }
   ];
 
   return (
@@ -15,11 +17,11 @@ export const BasePage: FunctionComponent = () => {
       <SideNav links={sideNavLinks}></SideNav>
       <div className="main-content">
         <Switch>
-          <Route path="/activityGraph">
-            <ActivityGraph></ActivityGraph>
+          <Route path={pathConstants.ANALYTICS_PATH}>
+            <ActivityAnalytics></ActivityAnalytics>
           </Route>
-          <Route path="/analytics">
-            <h1>File Edit</h1>
+          <Route path={pathConstants.EDITOR_PATH}>
+            <ActivityEditor></ActivityEditor>
           </Route>
         </Switch>
       </div>
