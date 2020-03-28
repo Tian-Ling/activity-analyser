@@ -1,0 +1,28 @@
+.side-nav {
+  width: 12%;
+  height: 100%;
+  position: fixed;
+  display: inline-block;
+  background-color: #e7e7e7e0;
+  border-right: 1px solid #dadada;
+}
+
+.side-nav div {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.side-nav div:hover {
+  background-color: rgb(212, 212, 212);
+  cursor: pointer;
+}
+
+.side-nav div a {
+  padding-left: 20px;
+}
+
+.side-nav-selected {
+  font-weight: 500;
+  background-color: rgb(212, 212, 212);
+}
