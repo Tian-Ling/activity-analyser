@@ -12,14 +12,9 @@ const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({
     <ResponsiveLine
       data={graphData}
       curve="natural"
-      xScale={{ type: 'point' }}
-      yScale={{
-        type: 'linear',
-        min: 'auto',
-        max: 'auto',
-        stacked: true,
-        reverse: false
-      }}
+      enablePoints={false}
+      useMesh
+      margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
     ></ResponsiveLine>
   );
 };
