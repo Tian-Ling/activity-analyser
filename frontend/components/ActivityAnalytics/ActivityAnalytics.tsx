@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import 'Styles/activity';
 import ActivityGraph from 'Components/ActivityGraph/ActivityGraph';
+import Body from './ActivityAnalyticsBody';
 
 const ActivityAnalytics: FunctionComponent = () => {
   const testGraphData1 = {
@@ -63,6 +64,7 @@ const ActivityAnalytics: FunctionComponent = () => {
   return (
     <div className="activity-graph-container">
       <ActivityGraph graphData={graphData}></ActivityGraph>
+      <Body></Body>
     </div>
   );
 };

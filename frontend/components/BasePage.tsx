@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import ActivityAnalytics from './ActivityAnalytics/ActivityAnalytics';
 import ActivityEditor from './ActivityEditor/ActivityEditor';
 import 'Styles/basepage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { SideNav, SideNavLink } from './common/SideNav';
 import { Switch, Route } from 'react-router-dom';
 import * as pathConstants from 'Constants/pathConstants';

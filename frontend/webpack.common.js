@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './index.tsx',
-  devtool: 'eval-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
     alias: {
@@ -12,11 +12,6 @@ module.exports = {
       Components: path.resolve(__dirname, 'components'),
       Constants: path.resolve(__dirname, 'constants')
     }
-  },
-  devServer: {
-    publicPath: '/',
-    historyApiFallback: true,
-    contentBase: './dist'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,10 +24,23 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/
       },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+              reloadAll: true
+            }
+          },
+          'css-loader'
+        ]
+      }
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html'
     })

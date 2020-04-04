@@ -4,7 +4,8 @@
   "description": "Activity Analyser Backend",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "fit-file-parser": "^1.6.17"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -15,6 +16,7 @@
     "eslint-plugin-standard": "^4.0.1"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tian Ling",
