@@ -8,9 +8,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
     alias: {
-      Styles: path.resolve(__dirname, 'styles'),
+      Api: path.resolve(__dirname, 'api'),
       Components: path.resolve(__dirname, 'components'),
-      Constants: path.resolve(__dirname, 'constants')
+      Constants: path.resolve(__dirname, 'constants'),
+      Helpers: path.resolve(__dirname, 'helpers'),
+      Styles: path.resolve(__dirname, 'styles')
     }
   },
   output: {

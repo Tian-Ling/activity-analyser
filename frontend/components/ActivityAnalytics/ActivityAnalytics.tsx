@@ -1,7 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useLayoutEffect } from 'react';
 import 'Styles/activity';
 import ActivityGraph from 'Components/ActivityGraph/ActivityGraph';
 import Body from './ActivityAnalyticsBody';
+import { parseFile } from 'Helpers/fileHelper';
+import fileApi from 'Api/fileApi';
 
 const ActivityAnalytics: FunctionComponent = () => {
   const testGraphData1 = {
@@ -60,11 +62,16 @@ const ActivityAnalytics: FunctionComponent = () => {
   };
 
   const graphData = [testGraphData1];
+  const [activityFile, setActivityFile] = useState<File>(null);
+
+  useLayoutEffect(() => {
+    parseFile(activityFile, fileApi.parseFitFile);
+  }, [activityFile]);
 
   return (
     <div className="activity-graph-container">
       <ActivityGraph graphData={graphData}></ActivityGraph>
-      <Body></Body>
+      <Body setImportFile={setActivityFile}></Body>
     </div>
   );
 };
