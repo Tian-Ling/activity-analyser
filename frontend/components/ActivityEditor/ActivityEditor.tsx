@@ -9,53 +9,53 @@ const ActivityEditor: FunctionComponent = () => {
     data: [
       {
         x: 'plane',
-        y: 119
+        y: 119,
       },
       {
         x: 'helicopter',
-        y: 297
+        y: 297,
       },
       {
         x: 'boat',
-        y: 152
+        y: 152,
       },
       {
         x: 'train',
-        y: 146
+        y: 146,
       },
       {
         x: 'subway',
-        y: 109
+        y: 109,
       },
       {
         x: 'bus',
-        y: 138
+        y: 138,
       },
       {
         x: 'car',
-        y: 286
+        y: 286,
       },
       {
         x: 'moto',
-        y: 250
+        y: 250,
       },
       {
         x: 'bicycle',
-        y: 118
+        y: 118,
       },
       {
         x: 'horse',
-        y: 52
+        y: 52,
       },
       {
         x: 'skateboard',
-        y: 169
+        y: 169,
       },
       {
         x: 'others',
-        y: 58
-      }
-    ]
+        y: 58,
+      },
+    ],
   };
 
   const graphData = [testGraphData1];

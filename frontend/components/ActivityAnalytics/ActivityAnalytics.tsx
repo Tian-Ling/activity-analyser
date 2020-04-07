@@ -12,60 +12,62 @@ const ActivityAnalytics: FunctionComponent = () => {
     data: [
       {
         x: 'plane',
-        y: 158
+        y: 158,
       },
       {
         x: 'helicopter',
-        y: 245
+        y: 245,
       },
       {
         x: 'boat',
-        y: 128
+        y: 128,
       },
       {
         x: 'train',
-        y: 245
+        y: 245,
       },
       {
         x: 'subway',
-        y: 282
+        y: 282,
       },
       {
         x: 'bus',
-        y: 249
+        y: 249,
       },
       {
         x: 'car',
-        y: 102
+        y: 102,
       },
       {
         x: 'moto',
-        y: 229
+        y: 229,
       },
       {
         x: 'bicycle',
-        y: 241
+        y: 241,
       },
       {
         x: 'horse',
-        y: 290
+        y: 290,
       },
       {
         x: 'skateboard',
-        y: 214
+        y: 214,
       },
       {
         x: 'others',
-        y: 93
-      }
-    ]
+        y: 93,
+      },
+    ],
   };
 
   const graphData = [testGraphData1];
   const [activityFile, setActivityFile] = useState<File>(null);
 
   useLayoutEffect(() => {
-    parseFile(activityFile, fileApi.parseFitFile);
+    if (activityFile) {
+      parseFile(activityFile, fileApi.parseFitFile);
+    }
   }, [activityFile]);
 
   return (
