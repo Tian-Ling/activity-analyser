@@ -10,7 +10,7 @@ import * as pathConstants from 'Constants/pathConstants';
 export const BasePage: FunctionComponent = () => {
   const sideNavLinks: SideNavLink[] = [
     { url: pathConstants.ANALYTICS_PATH, iconUri: '', name: 'Activity Graph' },
-    { url: pathConstants.EDITOR_PATH, iconUri: '', name: 'File Edit' }
+    { url: pathConstants.EDITOR_PATH, iconUri: '', name: 'File Edit' },
   ];
 
   return (

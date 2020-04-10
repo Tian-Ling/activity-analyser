@@ -6,7 +6,7 @@ type ActivityAnalyticsProps = {
 };
 
 const ActivityAnalyticsBody: FunctionComponent<ActivityAnalyticsProps> = ({
-  setImportFile
+  setImportFile,
 }: ActivityAnalyticsProps) => {
   const activityFile = useRef(null);
 

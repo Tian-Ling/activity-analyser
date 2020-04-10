@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState, useLayoutEffect } from 'react';
 import 'Styles/activity';
 import ActivityGraph from 'Components/ActivityGraph/ActivityGraph';
 import Body from './ActivityAnalyticsBody';
-import { parseFile } from 'Helpers/fileHelper';
 import fileApi from 'Api/fileApi';
 
 const ActivityAnalytics: FunctionComponent = () => {
@@ -66,7 +65,9 @@ const ActivityAnalytics: FunctionComponent = () => {
 
   useLayoutEffect(() => {
     if (activityFile) {
-      parseFile(activityFile, fileApi.parseFitFile);
+      fileApi.parseFitFile(activityFile).then((res) => {
+        console.log(res);
+      });
     }
   }, [activityFile]);
 

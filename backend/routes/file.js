@@ -1,8 +1,14 @@
+const fileController = require('../controllers/fileController');
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 
-router.post('/fit', (req, res) => {
-  return res.sendStatus(501);
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+router.post('/fit', upload.single('file'), (req, res) => {
+  fileController.fitFileParser(req.body);
+  return res.json({});
 });
 
 module.exports = router;
