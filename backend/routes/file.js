@@ -7,8 +7,8 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 router.post('/fit', upload.single('file'), (req, res) => {
-  fileController.fitFileParser(req.body);
-  return res.json({});
+  const result = fileController.fitFileParser(req.file.buffer);
+  return res.json(result);
 });
 
 module.exports = router;
