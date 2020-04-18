@@ -1,81 +1,42 @@
 import React, { FunctionComponent, useState, useLayoutEffect } from 'react';
 import 'Styles/activity';
 import ActivityGraph from 'Components/ActivityGraph/ActivityGraph';
+import EmptyGraph from 'Components/ActivityGraph/EmptyGraph';
 import Body from './ActivityAnalyticsBody';
-import fileApi from 'Api/fileApi';
+import fileApi, { ParsedFitFile } from 'Api/fileApi';
+import { Serie } from '@nivo/line';
 
 const ActivityAnalytics: FunctionComponent = () => {
-  const testGraphData1 = {
-    id: 'japan',
-    color: 'hsl(6, 70%, 50%)',
-    data: [
-      {
-        x: 'plane',
-        y: 158,
-      },
-      {
-        x: 'helicopter',
-        y: 245,
-      },
-      {
-        x: 'boat',
-        y: 128,
-      },
-      {
-        x: 'train',
-        y: 245,
-      },
-      {
-        x: 'subway',
-        y: 282,
-      },
-      {
-        x: 'bus',
-        y: 249,
-      },
-      {
-        x: 'car',
-        y: 102,
-      },
-      {
-        x: 'moto',
-        y: 229,
-      },
-      {
-        x: 'bicycle',
-        y: 241,
-      },
-      {
-        x: 'horse',
-        y: 290,
-      },
-      {
-        x: 'skateboard',
-        y: 214,
-      },
-      {
-        x: 'others',
-        y: 93,
-      },
-    ],
-  };
-
-  const graphData = [testGraphData1];
+  const [graphData, setGraphData] = useState<Serie[]>(null);
   const [activityFile, setActivityFile] = useState<File>(null);
 
   useLayoutEffect(() => {
     if (activityFile) {
-      fileApi.parseFitFile(activityFile).then((res) => {
-        console.log(res);
+      fileApi.parseFitFile(activityFile).then((parsedFile: ParsedFitFile) => {
+        setGraphData([
+          {
+            id: 'power',
+            color: 'hsl(105, 70%, 50%)',
+            data: parsedFile.dataPoints,
+          },
+        ]);
       });
     }
   }, [activityFile]);
 
   return (
-    <div className="activity-graph-container">
-      <ActivityGraph graphData={graphData}></ActivityGraph>
+    <>
+      <div
+        className={`activity-graph-container ${graphData ? '' : 'empty-graph'}`}
+      >
+        {graphData ? (
+          <ActivityGraph graphData={graphData}></ActivityGraph>
+        ) : (
+          <EmptyGraph></EmptyGraph>
+        )}
+      </div>
       <Body setImportFile={setActivityFile}></Body>
-    </div>
+    </>
   );
 };
 

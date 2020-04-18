@@ -1,21 +1,21 @@
+import 'Styles/activity';
 import React, { FunctionComponent } from 'react';
-import { ResponsiveLine, Serie } from '@nivo/line';
+import { ResponsiveLineCanvas, Serie } from '@nivo/line';
 
 export type ActivityGraphProps = {
   graphData: Serie[];
 };
 
 const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({
-  graphData
+  graphData,
 }: ActivityGraphProps) => {
   return (
-    <ResponsiveLine
+    <ResponsiveLineCanvas
       data={graphData}
       curve="natural"
       enablePoints={false}
-      useMesh
       margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
-    ></ResponsiveLine>
+    ></ResponsiveLineCanvas>
   );
 };
 

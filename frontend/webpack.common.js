@@ -12,19 +12,19 @@ module.exports = {
       Components: path.resolve(__dirname, 'components'),
       Constants: path.resolve(__dirname, 'constants'),
       Helpers: path.resolve(__dirname, 'helpers'),
-      Styles: path.resolve(__dirname, 'styles')
-    }
+      Styles: path.resolve(__dirname, 'styles'),
+    },
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.(js|ts)x?$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -33,23 +33,23 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               hmr: process.env.NODE_ENV === 'development',
-              reloadAll: true
-            }
+              reloadAll: true,
+            },
           },
-          'css-loader'
-        ]
-      }
-    ]
+          'css-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
-    })
+      template: './index.html',
+    }),
   ],
   optimization: {
     splitChunks: {
-      chunks: 'all'
-    }
-  }
+      chunks: 'all',
+    },
+  },
 };
