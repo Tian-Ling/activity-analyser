@@ -1,5 +1,5 @@
 import 'Styles/activity';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { ResponsiveLineCanvas, Serie } from '@nivo/line';
 import { getNthElement } from 'Helpers/arrayHelpers';
 import { convertSecondsToHourMinuteSeconds } from 'Helpers/timeHelpers';
@@ -22,7 +22,11 @@ function scaleGraphData(graphData: Serie[], points: number): Serie[] {
 }
 
 const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({ graphData, maxPoints }: ActivityGraphProps) => {
-  const scaledGraph = scaleGraphData(graphData, maxPoints);
+  const [scaledGraph, setScaledGraph] = useState(null);
+
+  useEffect(() => {
+    setScaledGraph(scaleGraphData(graphData, maxPoints));
+  }, [graphData, maxPoints]);
 
   return (
     <ResponsiveLineCanvas
