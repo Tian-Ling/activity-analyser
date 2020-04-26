@@ -26,14 +26,8 @@ const ActivityAnalytics: FunctionComponent = () => {
 
   return (
     <>
-      <div
-        className={`activity-graph-container ${graphData ? '' : 'empty-graph'}`}
-      >
-        {graphData ? (
-          <ActivityGraph graphData={graphData}></ActivityGraph>
-        ) : (
-          <EmptyGraph></EmptyGraph>
-        )}
+      <div className={`activity-graph-container ${graphData ? '' : 'empty-graph'}`}>
+        {graphData ? <ActivityGraph graphData={graphData} maxPoints={3000}></ActivityGraph> : <EmptyGraph></EmptyGraph>}
       </div>
       <Body setImportFile={setActivityFile}></Body>
     </>

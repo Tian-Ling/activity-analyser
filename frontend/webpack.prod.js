@@ -5,5 +5,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
-  plugins: [new CleanWebpackPlugin()]
+  devtool: 'eval-source-map',
+  plugins: [new CleanWebpackPlugin()],
 });
