@@ -8,6 +8,19 @@
   margin: 0 25px 0 0;
 }
 
+.activity-field-label {
+  display: block;
+  font-weight: 350;
+  font-size: 1em;
+  color: rgb(76, 76, 76);
+}
+
+.activity-field-value {
+  display: block;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
 .empty-graph {
   opacity: 0.5;
 }
