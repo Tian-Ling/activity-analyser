@@ -1,0 +1,13 @@
+{
+    "editor.formatOnSave": true,
+    "prettier.singleQuote": true,
+    "editor.renderWhitespace": "selection",
+    "eslint.enable": true,
+    "eslint.workingDirectories": ["backend", "frontend"],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ]
+}
