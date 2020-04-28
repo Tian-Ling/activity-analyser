@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { BASE_PATH } from 'Constants/apiConstants';
 import { Datum } from '@nivo/line';
+import { ActivityInformation } from 'Types/CommonActivityTypes';
 
 export type ParsedFitFile = {
   dataPoints: Datum[];
+  sessionInformation: ActivityInformation;
 };
 
 export const parseFitFile = (file: File): Promise<ParsedFitFile> => {
