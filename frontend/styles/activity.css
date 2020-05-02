@@ -2,10 +2,35 @@
   height: 450px;
 }
 
+.activity-information-container {
+  margin-top: 10px;
+}
+
 .activity-analytics-file {
   display: flex;
   justify-content: flex-end;
   margin: 0 25px 0 0;
+}
+
+.activity-field-label {
+  display: block;
+  text-align: center;
+  font-weight: 350;
+  font-size: 1em;
+  color: rgb(76, 76, 76);
+}
+
+.activity-field-value {
+  display: block;
+  font-weight: 400;
+  font-size: 1.2em;
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+
+.activity-null-value {
+  width: 10%;
+  margin: 0 auto;
 }
 
 .empty-graph {

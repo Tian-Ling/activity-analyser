@@ -13,6 +13,7 @@ module.exports = {
       Constants: path.resolve(__dirname, 'constants'),
       Helpers: path.resolve(__dirname, 'helpers'),
       Styles: path.resolve(__dirname, 'styles'),
+      Types: path.resolve(__dirname, 'types'),
     },
   },
   output: {
