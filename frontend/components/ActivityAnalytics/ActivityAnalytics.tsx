@@ -33,7 +33,7 @@ const ActivityAnalytics: FunctionComponent = () => {
         setGraphData([
           {
             id: 'power',
-            color: 'hsl(105, 70%, 50%)',
+            color: 'rgb(255, 244, 78)',
             data: dataPoints,
           },
         ]);

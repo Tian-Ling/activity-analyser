@@ -1,6 +1,7 @@
 import 'Styles/activity';
+import 'Styles/activityGraph';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { ResponsiveLineCanvas, Serie } from '@nivo/line';
+import { ResponsiveLine, Serie, PointTooltipProps } from '@nivo/line';
 import { getNthElement } from 'Helpers/arrayHelpers';
 import { convertSecondsToHourMinuteSeconds } from 'Helpers/timeHelpers';
 
@@ -21,6 +22,15 @@ function scaleGraphData(graphData: Serie[], points: number): Serie[] {
   return scaledGraph;
 }
 
+const FormattedTooltip: FunctionComponent<PointTooltipProps> = ({ point }: PointTooltipProps) => {
+  return (
+    <div className="activity-graph-tooltip">
+      <span>Time: {point.data.xFormatted}</span>
+      <span>Power: {point.data.yFormatted}</span>
+    </div>
+  );
+};
+
 const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({ graphData, maxPoints }: ActivityGraphProps) => {
   const [scaledGraph, setScaledGraph] = useState(null);
 
@@ -29,21 +39,28 @@ const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({ graphData, maxPo
   }, [graphData, maxPoints]);
 
   return (
-    <ResponsiveLineCanvas
-      data={scaledGraph}
-      curve="linear"
-      margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
-      xScale={{ type: 'linear', min: 0, max: 'auto' }}
-      xFormat={(second: number): number => {
-        return convertSecondsToHourMinuteSeconds(second);
-      }}
+    <ResponsiveLine
       axisBottom={{
         format: (second: number): number => {
           return convertSecondsToHourMinuteSeconds(second);
         },
+        legend: 'Time',
+        legendOffset: 35,
+        legendPosition: 'middle',
       }}
+      colors={{ datum: 'color' }}
+      crosshairType={'x'}
+      curve="linear"
+      data={scaledGraph}
       enablePoints={false}
-    ></ResponsiveLineCanvas>
+      margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+      tooltip={FormattedTooltip}
+      useMesh
+      xFormat={(second: number): number => {
+        return convertSecondsToHourMinuteSeconds(second);
+      }}
+      xScale={{ type: 'linear', min: 0, max: 'auto' }}
+    ></ResponsiveLine>
   );
 };
 
