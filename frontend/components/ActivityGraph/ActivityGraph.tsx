@@ -1,7 +1,7 @@
 import 'Styles/activity';
 import 'Styles/activityGraph';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { ResponsiveLine, Serie, PointTooltipProps } from '@nivo/line';
+import { ResponsiveLine, Serie, PointTooltipProps } from 'nivo-enhanced-line';
 import { getNthElement } from 'Helpers/arrayHelpers';
 import { convertSecondsToHourMinuteSeconds } from 'Helpers/timeHelpers';
 
@@ -52,10 +52,12 @@ const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({ graphData, maxPo
       crosshairType={'x'}
       curve="linear"
       data={scaledGraph}
+      enableGridX={false}
+      enableGridY={false}
       enablePoints={false}
+      enableSlices={'x'}
       margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
       tooltip={FormattedTooltip}
-      useMesh
       xFormat={(second: number): number => {
         return convertSecondsToHourMinuteSeconds(second);
       }}
