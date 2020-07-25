@@ -13,11 +13,11 @@
 }
 
 .activity-field-label {
+  color: rgb(106, 106, 106);
   display: block;
-  text-align: center;
   font-weight: 350;
   font-size: 1em;
-  color: rgb(76, 76, 76);
+  text-align: center;
 }
 
 .activity-field-value {
@@ -29,8 +29,8 @@
 }
 
 .activity-null-value {
-  width: 10%;
   margin: 0 auto;
+  width: 10%;
 }
 
 .empty-graph {

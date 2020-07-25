@@ -1,50 +1,64 @@
 import 'Styles/activity';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { ResponsiveLineCanvas, Serie } from '@nivo/line';
-import { getNthElement } from 'Helpers/arrayHelpers';
+import 'Styles/activityGraph';
+import React, { FunctionComponent } from 'react';
+import { ResponsiveLine, Serie, PointTooltipProps } from 'nivo-enhanced-line';
 import { convertSecondsToHourMinuteSeconds } from 'Helpers/timeHelpers';
 
 export type ActivityGraphProps = {
   graphData: Serie[];
   maxPoints: number;
+  brushCallback?: (points: Serie[]) => void;
 };
 
-function scaleGraphData(graphData: Serie[], points: number): Serie[] {
-  const scaledGraph: Serie[] = [];
-  const scaleFactor = Math.round(graphData[0].data.length / points);
-
-  for (const graph of graphData) {
-    const scaledGraphData = getNthElement(graph.data, scaleFactor);
-    scaledGraph.push({ ...graph, data: scaledGraphData });
-  }
-
-  return scaledGraph;
-}
-
-const ActivityGraph: FunctionComponent<ActivityGraphProps> = ({ graphData, maxPoints }: ActivityGraphProps) => {
-  const [scaledGraph, setScaledGraph] = useState(null);
-
-  useEffect(() => {
-    setScaledGraph(scaleGraphData(graphData, maxPoints));
-  }, [graphData, maxPoints]);
-
+const FormattedTooltip: FunctionComponent<PointTooltipProps> = ({ point }: PointTooltipProps) => {
   return (
-    <ResponsiveLineCanvas
-      data={scaledGraph}
-      curve="linear"
-      margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
-      xScale={{ type: 'linear', min: 0, max: 'auto' }}
-      xFormat={(second: number): number => {
-        return convertSecondsToHourMinuteSeconds(second);
-      }}
-      axisBottom={{
-        format: (second: number): number => {
-          return convertSecondsToHourMinuteSeconds(second);
-        },
-      }}
-      enablePoints={false}
-    ></ResponsiveLineCanvas>
+    <div className="activity-graph-tooltip">
+      <span>Time: {point.data.xFormatted}</span>
+      <span>Power: {point.data.yFormatted}</span>
+    </div>
   );
 };
+
+const ActivityGraph: FunctionComponent<ActivityGraphProps> = React.memo(
+  ({ graphData, maxPoints, brushCallback }: ActivityGraphProps) => {
+    return (
+      <ResponsiveLine
+        animate={false}
+        axisBottom={{
+          format: (value: Date): string => {
+            const seconds = value.getTime() / 1000;
+            const formattedTime = convertSecondsToHourMinuteSeconds(seconds);
+
+            return formattedTime;
+          },
+          tickValues: 4,
+        }}
+        colors={{ datum: 'color' }}
+        crosshairType={'x'}
+        data={graphData}
+        enableGridX={false}
+        enableGridY={false}
+        enablePoints={false}
+        enableSlices={'x'}
+        margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+        tooltip={FormattedTooltip}
+        useBrush={{
+          maxNumberOfPoints: maxPoints,
+          brushDataCallback: brushCallback,
+        }}
+        xScale={{
+          type: 'time',
+          format: '%s',
+          precision: 'second',
+        }}
+        yScale={{
+          type: 'linear',
+        }}
+      ></ResponsiveLine>
+    );
+  }
+);
+
+ActivityGraph.displayName = 'ActivityGraph';
 
 export default ActivityGraph;

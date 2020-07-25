@@ -4,7 +4,12 @@ const parseIntoNivoFormat = (parsedFitFile) => {
   const { records } = parsedFitFile;
   const sessionInformation = parsedFitFile.sessions[0];
   const result = {
-    dataPoints: [],
+    dataPoints: {
+      cadence: [],
+      heartRate: [],
+      power: [],
+      speed: [],
+    },
     sessionInformation: {
       averageCadence: sessionInformation.avg_cadence,
       averageHeartRate: sessionInformation.avg_heart_rate,
@@ -22,8 +27,11 @@ const parseIntoNivoFormat = (parsedFitFile) => {
 
   for (const record of records) {
     // eslint-disable-next-line camelcase
-    const { timer_time, power } = record;
-    result.dataPoints.push({ x: timer_time, y: power });
+    const { timer_time, cadence, heart_rate, power, speed } = record;
+    result.dataPoints.cadence.push({ x: timer_time, y: cadence });
+    result.dataPoints.heartRate.push({ x: timer_time, y: heart_rate });
+    result.dataPoints.power.push({ x: timer_time, y: power });
+    result.dataPoints.speed.push({ x: timer_time, y: speed });
   }
 
   return result;

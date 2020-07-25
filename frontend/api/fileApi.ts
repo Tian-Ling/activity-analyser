@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { BASE_PATH } from 'Constants/apiConstants';
-import { Datum } from '@nivo/line';
-import { ActivityInformation } from 'Types/CommonActivityTypes';
+import { ActivityInformation, DataPoints } from 'Types/CommonActivityTypes';
 
 export type ParsedFitFile = {
-  dataPoints: Datum[];
+  dataPoints: DataPoints;
   sessionInformation: ActivityInformation;
 };
 
