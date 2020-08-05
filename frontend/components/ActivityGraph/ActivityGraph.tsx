@@ -40,7 +40,7 @@ const ActivityGraph: FunctionComponent<ActivityGraphProps> = React.memo(
         enableGridY={false}
         enablePoints={false}
         enableSlices={'x'}
-        margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+        margin={{ top: 60, right: 50, bottom: 60, left: 50 }}
         tooltip={FormattedTooltip}
         useBrush={{
           maxNumberOfPoints: maxPoints,

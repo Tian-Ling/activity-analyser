@@ -12,6 +12,13 @@ const ActivityAnalyticsBody: FunctionComponent<ActivityAnalyticsProps> = ({
   setImportFile,
   activityInformation,
 }: ActivityAnalyticsProps) => {
+  const {
+    power: averagePower,
+    heart_rate: averageHeartRate,
+    cadence: averageCadence,
+    speed: averageSpeed,
+  } = activityInformation.averages;
+
   return (
     <div className="activity-analytics-body">
       <ActivityFileUploader className="activity-analytics-file" setImportFile={setImportFile}></ActivityFileUploader>
@@ -19,27 +26,19 @@ const ActivityAnalyticsBody: FunctionComponent<ActivityAnalyticsProps> = ({
         <Row>
           <Col md={{ span: 3 }}>
             <span className="activity-field-label">Average Power</span>
-            <span className="activity-field-value">
-              {activityInformation.averagePower || <hr className="activity-null-value" />}
-            </span>
+            <span className="activity-field-value">{averagePower || <hr className="activity-null-value" />}</span>
           </Col>
           <Col md={{ span: 3 }}>
             <span className="activity-field-label">Average Heart Rate</span>
-            <span className="activity-field-value">
-              {activityInformation.averageHeartRate || <hr className="activity-null-value" />}
-            </span>
+            <span className="activity-field-value">{averageHeartRate || <hr className="activity-null-value" />}</span>
           </Col>
           <Col md={{ span: 3 }}>
             <span className="activity-field-label">Average Cadence</span>
-            <span className="activity-field-value">
-              {activityInformation.averageCadence || <hr className="activity-null-value" />}
-            </span>
+            <span className="activity-field-value">{averageCadence || <hr className="activity-null-value" />}</span>
           </Col>
           <Col md={{ span: 3 }}>
             <span className="activity-field-label">Average Speed</span>
-            <span className="activity-field-value">
-              {activityInformation.averageSpeed || <hr className="activity-null-value" />}
-            </span>
+            <span className="activity-field-value">{averageSpeed || <hr className="activity-null-value" />}</span>
           </Col>
         </Row>
       </Container>
