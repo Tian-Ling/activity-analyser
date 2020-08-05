@@ -1,20 +1,27 @@
 const FitParser = require('fit-file-parser').default;
+const { CONVERSION_FACTORS, FIELD_ROUNDING } = require('../constants/fileConstants');
 
 const parseIntoNivoFormat = (parsedFitFile) => {
   const { records } = parsedFitFile;
   const sessionInformation = parsedFitFile.sessions[0];
+
+  const numberOfDataPoints = records.length;
+  const averages = {
+    cadence: 0,
+    heart_rate: 0,
+    power: 0,
+    speed: 0,
+  };
+  const dataPoints = {
+    cadence: [],
+    heart_rate: [],
+    power: [],
+    speed: [],
+  };
   const result = {
-    dataPoints: {
-      cadence: [],
-      heartRate: [],
-      power: [],
-      speed: [],
-    },
+    dataPoints,
     sessionInformation: {
-      averageCadence: sessionInformation.avg_cadence,
-      averageHeartRate: sessionInformation.avg_heart_rate,
-      averagePower: sessionInformation.avg_power,
-      averageSpeed: sessionInformation.avg_speed,
+      averages,
       intensityFactor: sessionInformation.intensity_factor,
       maxCadence: sessionInformation.max_cadence,
       maxHeartRate: sessionInformation.max_heart_rate,
@@ -26,13 +33,36 @@ const parseIntoNivoFormat = (parsedFitFile) => {
   };
 
   for (const record of records) {
-    // eslint-disable-next-line camelcase
-    const { timer_time, cadence, heart_rate, power, speed } = record;
-    result.dataPoints.cadence.push({ x: timer_time, y: cadence });
-    result.dataPoints.heartRate.push({ x: timer_time, y: heart_rate });
-    result.dataPoints.power.push({ x: timer_time, y: power });
-    result.dataPoints.speed.push({ x: timer_time, y: speed });
+    Object.keys(record).forEach((recordName) => {
+      if (recordName in dataPoints) {
+        let recordValue = record[recordName];
+
+        if (recordName === 'speed') {
+          recordValue *= CONVERSION_FACTORS.KMH;
+        }
+
+        dataPoints[recordName].push({ x: record.timer_time, y: recordValue });
+      }
+
+      if (recordName in averages) {
+        averages[recordName] += record[recordName];
+      }
+    });
   }
+
+  Object.keys(averages).forEach((average) => {
+    averages[average] = averages[average] / numberOfDataPoints;
+
+    if (average === 'speed') {
+      averages[average] *= CONVERSION_FACTORS.KMH;
+    }
+
+    if (FIELD_ROUNDING[average] === 0) {
+      averages[average] = Math.round(averages[average]);
+    } else {
+      averages[average] = parseFloat(averages[average].toFixed(2));
+    }
+  });
 
   return result;
 };
@@ -40,6 +70,7 @@ const parseIntoNivoFormat = (parsedFitFile) => {
 const fitFileParser = (fitFile) => {
   const fitParser = new FitParser({
     elapsedRecordField: true,
+    speedUnit: 'km/h',
   });
   let result = {};
 
